@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMemo } from 'react';
+import { Columns } from './data/columns';
+import Grid from './components/Grid.js';
+import MOCK_DATA from './data/MOCK_DATA.json';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const columns = useMemo(() => Columns, []);
+    const data = useMemo(() => MOCK_DATA, []);
+
+    return (
+        <div className='main-container'>
+            <Grid columns={columns} data={data}></Grid>
+        </div>
+    );
 }
 
 export default App;
