@@ -9,7 +9,13 @@ function App() {
 
     return (
         <div className='main-container'>
-            <Grid columns={columns} data={data}></Grid>
+            <div className='component-container'>
+                <div className='tab-title'>Contracte</div>
+                <button className='crud-button'></button>
+                <div className='grid-container'>
+                    <Grid columns={columns} data={data}></Grid>
+                </div>
+            </div>
         </div>
     );
 }
