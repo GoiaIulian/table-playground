@@ -132,7 +132,8 @@
             align-items: flex-start;
             justify-content: flex-start;
             width: 100%;
-            max-height: 70vh;
+            max-height: 80vh;
+            min-height: 80vh;
             overflow: auto;
 
             border-bottom: .3em solid var(--color-primary);
@@ -144,6 +145,77 @@
             justify-content: space-between;
 
             width: 100%;
+
+            select {
+                height: 32px;
+                border-radius: .4em;
+                color: var(--color-text);
+                background-color: var(--color-dark-3);
+                border: none;
+                outline: none;
+                width: fit-content;
+                width: 90px;
+            }
+
+            .pagination-right {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: .2em;
+
+                height: 32px;
+                border-radius: .4em;
+                background-color: var(--color-dark-4);
+
+                .start {
+                    border-radius: .4em 0 0 .4em;
+                }
+
+                .end {
+                    border-radius: 0 .4em .4em 0;
+                }
+
+                .navigation-button {
+                    padding: .5em;
+                    font-size: 1em;
+                    font-weight: 500;
+                    color: var(--color-text);
+                    background-color: var(--color-dark-3);
+                    border: none;
+                    outline: none;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    cursor: pointer;
+
+                    transition: background-color .2s ease-in;
+                    transition: color .2s ease-in;
+
+                    &:hover {
+                        background-color: var(--color-dark-1);
+                        color: var(--color-primary);
+                    }
+                }
+
+                .current-page {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .2em;
+                    height: 32px;
+
+                    color: var(--color-dark-1);
+                    padding-inline: .5em;
+                    font-size: 0.7em;
+
+                    .page-number {
+                        color: var(--color-light-4);
+                    }
+                }
+            }
         }
     }
 }

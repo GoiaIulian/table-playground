@@ -1,6 +1,18 @@
-import React from 'react';
-import { useTable, usePagination } from 'react-table';
-import { IoMdAdd, IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import React, { useState } from 'react';
+import {
+    useTable,
+    usePagination,
+    useSortBy,
+    useGlobalFilter,
+    useAsyncDebounce,
+} from 'react-table';
+import {
+    IoMdAdd,
+    IoIosArrowBack,
+    IoIosArrowForward,
+    IoIosArrowUp,
+    IoIosArrowDown,
+} from 'react-icons/io';
 import { IoTrashOutline, IoSearchOutline } from 'react-icons/io5';
 import { MdOutlineEdit } from 'react-icons/md';
 import { BiArrowToLeft, BiArrowToRight } from 'react-icons/bi';
@@ -20,13 +32,16 @@ const Grid = ({ columns, data }) => {
         nextPage,
         previousPage,
         setPageSize,
-        state: { pageIndex, pageSize },
+        setGlobalFilter,
+        state: { pageIndex, pageSize, globalFilter },
     } = useTable(
         {
             columns,
             data,
-            initialState: { pageIndex: 2 },
+            initialState: { pageSize: 25 },
         },
+        useGlobalFilter,
+        useSortBy,
         usePagination
     );
 
@@ -49,9 +64,11 @@ const Grid = ({ columns, data }) => {
                 </div>
                 <div className='right-element'>
                     <input
+                        value={globalFilter || ''}
                         type='text'
                         className='search-field'
                         placeholder='Search ...'
+                        onChange={(e) => setGlobalFilter(e.target.value)}
                     />
                     <button className='search-button'>
                         <IoSearchOutline></IoSearchOutline>
@@ -64,8 +81,20 @@ const Grid = ({ columns, data }) => {
                         {headerGroups.map((headerGroup) => (
                             <tr {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map((column) => (
-                                    <th {...column.getHeaderProps()}>
+                                    <th
+                                        {...column.getHeaderProps(
+                                            column.getSortByToggleProps()
+                                        )}>
                                         {column.render('Header')}
+                                        {column.isSorted ? (
+                                            column.isSortedDesc ? (
+                                                <IoIosArrowDown />
+                                            ) : (
+                                                <IoIosArrowUp />
+                                            )
+                                        ) : (
+                                            ''
+                                        )}
                                     </th>
                                 ))}
                             </tr>
@@ -95,7 +124,7 @@ const Grid = ({ columns, data }) => {
                     onChange={(e) => {
                         setPageSize(Number(e.target.value));
                     }}>
-                    {[10, 20, 30].map((pageSize) => (
+                    {[15, 20, 25, 30].map((pageSize) => (
                         <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>
@@ -103,7 +132,7 @@ const Grid = ({ columns, data }) => {
                 </select>
                 <div className='pagination-right'>
                     <button
-                        className='navigation-button'
+                        className='navigation-button start'
                         onClick={() => gotoPage(0)}
                         disabled={!canPreviousPage}>
                         {' '}
@@ -117,8 +146,9 @@ const Grid = ({ columns, data }) => {
                         <IoIosArrowBack />{' '}
                     </button>
                     <span className='current-page'>
-                        Page <strong>{pageIndex + 1}</strong> of
-                        <strong>{pageOptions.length}</strong>
+                        Page <div className='page-number'>{pageIndex + 1}</div>{' '}
+                        of
+                        <div className='page-number'>{pageOptions.length}</div>
                     </span>
                     <button
                         className='navigation-button'
@@ -128,7 +158,7 @@ const Grid = ({ columns, data }) => {
                         <IoIosArrowForward />{' '}
                     </button>
                     <button
-                        className='navigation-button'
+                        className='navigation-button end'
                         onClick={() => gotoPage(pageCount - 1)}
                         disabled={!canNextPage}>
                         {' '}
