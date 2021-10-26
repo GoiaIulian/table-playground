@@ -211,5 +211,11 @@ table th {
   overflow: auto;
   border-bottom: 0.3em solid var(--color-primary);
 }
+.main-container .component-container .bottom-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
 
 /*# sourceMappingURL=index.css.map */

@@ -137,5 +137,13 @@
 
             border-bottom: .3em solid var(--color-primary);
         }
+
+        .bottom-bar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            width: 100%;
+        }
     }
 }
