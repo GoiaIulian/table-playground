@@ -155,6 +155,9 @@
                 outline: none;
                 width: fit-content;
                 width: 90px;
+
+                cursor: pointer;
+                text-align: center;
             }
 
             .pagination-right {
@@ -193,9 +196,13 @@
                     transition: background-color .2s ease-in;
                     transition: color .2s ease-in;
 
-                    &:hover {
+                    &:hover:enabled {
                         background-color: var(--color-dark-1);
                         color: var(--color-primary);
+                    }
+
+                    &:disabled {
+                        color: var(--color-dark-1);
                     }
                 }
 

@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     useTable,
     usePagination,
     useSortBy,
     useGlobalFilter,
-    useAsyncDebounce,
 } from 'react-table';
 import {
     IoMdAdd,

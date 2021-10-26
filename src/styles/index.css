@@ -227,6 +227,8 @@ table th {
   outline: none;
   width: fit-content;
   width: 90px;
+  cursor: pointer;
+  text-align: center;
 }
 .main-container .component-container .bottom-bar .pagination-right {
   display: flex;
@@ -258,9 +260,12 @@ table th {
   transition: background-color 0.2s ease-in;
   transition: color 0.2s ease-in;
 }
-.main-container .component-container .bottom-bar .pagination-right .navigation-button:hover {
+.main-container .component-container .bottom-bar .pagination-right .navigation-button:hover:enabled {
   background-color: var(--color-dark-1);
   color: var(--color-primary);
+}
+.main-container .component-container .bottom-bar .pagination-right .navigation-button:disabled {
+  color: var(--color-dark-1);
 }
 .main-container .component-container .bottom-bar .pagination-right .current-page {
   display: flex;
